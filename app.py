@@ -24,8 +24,8 @@ class User(UserMixin):
 
 # define user credentials
 users = {
-    '1': User('1', 'pass1'),
-    '2': User('2', 'pass2')
+    '1': User('1', 'pass'),
+    '2': User('2', 'pass')
 }
 
 # define user_loader function
