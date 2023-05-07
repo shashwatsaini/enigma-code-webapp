@@ -27,7 +27,7 @@
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            font-size: 3rem;
+            font-size: calc(0.5rem + 3vw); /* Adjustable font size */
             text-align: center;
         }
 
@@ -40,13 +40,36 @@
             background-color: #007bff;
             transition: width 5s ease-out;
         }
+
+        .loading-dots {
+            display: inline-block;
+            animation: ellipsis 1s infinite;
+            font-size: calc(3rem + 2vw); /* Adjustable font size */
+            width: 1em;
+            text-align: center;
+        }
+
+        @keyframes ellipsis {
+            0% {
+                content: "\\00B7\\00B7\\00B7";
+            }
+            33% {
+                content: "\\2022\\00B7\\00B7";
+            }
+            66% {
+                content: "\\2022\\2022\\00B7";
+            }
+            100% {
+                content: "\\2022\\2022\\2022";
+            }
+        }
     </style>
 </head>
 <body>
     <video autoplay muted loop>
         <source src="../static/vid-space.mp4" type="video/mp4">
     </video>
-    <h1>ENIGMA LOADING</h1>
+    <h1>ENIGMA LOADING <span class="loading-dots"></span></h1>
     <div class="loading-bar"></div>
     <script>
         window.onload = function() {
