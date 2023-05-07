@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Riddle Challenge</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<style>
+		body {
+			font-family: Arial, sans-serif;
+			text-align: center;
+			padding: 20px;
+		}
+		h1 {
+			font-size: 36px;
+		}
+		input[type=text] {
+			padding: 10px;
+			border-radius: 5px;
+			border: 1px solid gray;
+			width: 50%;
+			margin-bottom: 20px;
+		}
+		input[type=submit] {
+			padding: 10px 20px;
+			border-radius: 5px;
+			border: none;
+			background-color: #4CAF50;
+			color: white;
+			cursor: pointer;
+		}
+		input[type=submit]:hover {
+			background-color: #45a049;
+		}
+		p {
+			font-size: 18px;
+			margin-bottom: 10px;
+		}
+		.result {
+			font-size: 24px;
+			margin-top: 20px;
+		}
+	</style>
+</head>
+<body>
+	<h1>Riddle Challenge</h1>
+	<p>Answer the following three riddles to reveal the number:</p>
+	<form action="/challenge2-validator" method="post">
+		<p>Riddle 1:</p>
+		<p>What is the most used programming language in 2021?</p>
+		<input type="text" name="riddle1" placeholder="Enter your answer here">
+		<p>Riddle 2:</p>
+		<p>What is the abbreviation for the language used to style web pages?</p>
+		<input type="text" name="riddle2" placeholder="Enter your answer here">
+		<p>Riddle 3:</p>
+		<p>What is the name of the world's first computer programmer?</p>
+		<input type="text" name="riddle3" placeholder="Enter your answer here">
+		<input type="hidden" name="number" value="{{ number }}">
+		<input type="submit" value="Submit">
+	</form>
+    <p> Number will be DISPLAYED BELOW IF YOU ANSWER IT RIGHT !! </p>
+	{% if result %}
+		<p class="result">{{ result }}</p>
+	{% endif %}
+</body>
+</html>

@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Encryption Challenge</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<style>
+		body {
+			font-family: Arial, sans-serif;
+			text-align: center;
+			padding: 20px;
+		}
+		h1 {
+			font-size: 36px;
+		}
+		input[type=text] {
+			padding: 10px;
+			border-radius: 5px;
+			border: 1px solid gray;
+			width: 50%;
+			margin-bottom: 20px;
+		}
+		input[type=submit] {
+			padding: 10px 20px;
+			border-radius: 5px;
+			border: none;
+			background-color: #4CAF50;
+			color: white;
+			cursor: pointer;
+		}
+		input[type=submit]:hover {
+			background-color: #45a049;
+		}
+		p {
+			font-size: 18px;
+			margin-bottom: 10px;
+		}
+		.result {
+			font-size: 24px;
+			margin-top: 20px;
+		}
+	</style>
+</head>
+<body>
+	<h1>Encryption Challenge</h1>
+
+    <p>IF ANSWER CORRECT NUMBER WILL BE DISPLAYED HERE : {{ number }}</p>
+
+	<p>Decrypt the following message:</p>
+	<p>Qebobxo xo cdbokd <strong>(shifted by 3)</strong></p>
+	<form action="/challenge1-validator" method="post">
+		<input type="text" name="answer" placeholder="Enter your answer here">
+		<input type="hidden" name="number" value="{{ number }}">
+		<input type="submit" value="Submit">
+	</form>
+	{% if result %}
+		<p class="result">{{ result }}</p>
+	{% endif %}
+</body>
+</html>

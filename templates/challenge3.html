@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Matching Challenge</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<style>
+		body {
+			font-family: Arial, sans-serif;
+			text-align: center;
+			padding: 20px;
+		}
+		h1 {
+			font-size: 36px;
+		}
+		table {
+			margin: 0 auto;
+			border-collapse: collapse;
+			width: 80%;
+		}
+		td {
+			padding: 10px;
+			border: 1px solid gray;
+			font-size: 18px;
+		}
+		td:hover {
+			background-color: #f2f2f2;
+			cursor: pointer;
+		}
+		td.selected {
+			background-color: #4CAF50;
+			color: white;
+		}
+		input[type=submit] {
+			padding: 10px 20px;
+			border-radius: 5px;
+			border: none;
+			background-color: #4CAF50;
+			color: white;
+			cursor: pointer;
+		}
+		input[type=submit]:hover {
+			background-color: #45a049;
+		}
+		p {
+			font-size: 18px;
+			margin-bottom: 10px;
+		}
+		.result {
+			font-size: 24px;
+			margin-top: 20px;
+		}
+	</style>
+</head>
+<body>
+	<h1>Matching Challenge</h1>
+	<p>Match the following technologies with their corresponding descriptions:</p>
+	<table>
+		<tr>
+			<td class="option">Python</td>
+			<td class="option">JavaScript</td>
+			<td class="option">HTML</td>
+			<td class="option">CSS</td>
+			<td class="option">Java</td>
+		</tr>
+		<tr>
+			<td class="description">A popular high-level programming language known for its simplicity and ease of use</td>
+			<td class="description">A client-side scripting language used for creating interactive web pages</td>
+			<td class="description">A markup language used for creating web pages and web applications</td>
+			<td class="description">A style sheet language used for describing the presentation of a document written in HTML</td>
+			<td class="description">A popular object-oriented programming language used for creating desktop and mobile applications</td>
+		</tr>
+	</table>
+	<form action="/challenge3-validator" method="post">
+		<input type="hidden" name="number" value="{{ number }}">
+		<input type="hidden" name="answer1" id="answer1">
+		<input type="hidden" name="answer2" id="answer2">
+		<input type="hidden" name="answer3" id="answer3">
+		<input type="submit" value="Submit">
+	</form>
+	{% if result %}
+		<p class="result">{{ result }}</p>
+	{% endif %}
+	<script>
+		var options = document.querySelectorAll('.option');
+		var descriptions = document.querySelectorAll('.description');
+		var selectedOptions = [];
+
+		options.forEach(function(option) {
+			option.addEventListener('click', function() {
+				if (selectedOptions.length < 3 && !this.classList.contains('selected')) {
+					selectedOptions.push(this);
+					this.classList.add('selected');
+				} else if (selectedOptions.includes(this)) {
+					selectedOptions.splice(selectedOptions.indexOf(this), 1);
+					this.classList.remove('selected');
+}
+});
+});
+        	document.querySelector('form').addEventListener('submit', function(event) {
+		if (selectedOptions.length < 3) {
+			event.preventDefault();
+			alert('Please select three options before submitting.');
+		} else {
+			document.querySelector('#answer1').value = selectedOptions[0].textContent;
+			document.querySelector('#answer2').value = selectedOptions[1].textContent;
+			document.querySelector('#answer3').value = selectedOptions[2].textContent;
+		}
+	});
+</script>
+</body>
+</html>
