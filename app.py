@@ -37,7 +37,7 @@ def load_user(user_id):
 # define wait route
 @app.route('/')
 def wait():
-    seconds_to_wait = 5 # replace with desired number of seconds to wait
+    seconds_to_wait = 1 # replace with desired number of seconds to wait
     return render_template('wait.html', seconds=seconds_to_wait)
 
 # define login route and function
@@ -71,13 +71,60 @@ def challenges():
 def challenge1():
     return render_template('challenge1.html')
 
+@app.route('/challenge1-validator', methods=['POST'])
+def challenge1_validator():
+    answer = request.form['answer']
+    number = request.form['number']
+    if answer == 'Narnia is coming':
+        return render_template('challenge1.html', number=7, result='Congratulations!')
+    else:
+        return render_template('challenge1.html', number=None, result='Try again!')
+
+
+
+
+
 @app.route('/challenge2')
 def challenge2():
     return render_template('challenge2.html')
 
+@app.route('/challenge2-validator', methods=['POST'])
+def challenge2_validator():
+    riddle1_answer = request.form.get('riddle1')
+    riddle2_answer = request.form.get('riddle2')
+    riddle3_answer = request.form.get('riddle3')
+    number = 5
+
+    if riddle1_answer.lower() == 'javascript' and riddle2_answer.lower() == 'css' and riddle3_answer.lower() == 'ada lovelace':
+        return render_template('challenge2.html', result=number)
+    else:
+        return render_template('challenge2.html', result='TRY AGAIN')
+
+
+
 @app.route('/challenge3')
 def challenge3():
     return render_template('challenge3.html')
+
+
+@app.route('/challenge3-validator', methods=['POST'])
+def challenge3_validator(number, answer1, answer2, answer3):
+    correct_answers = {
+        'Python': 'A popular high-level programming language known for its simplicity and ease of use',
+        'JavaScript': 'A client-side scripting language used for creating interactive web pages',
+        'HTML': 'A markup language used for creating web pages and web applications',
+        'CSS': 'A style sheet language used for describing the presentation of a document written in HTML',
+        'Java': 'A popular object-oriented programming language used for creating desktop and mobile applications'
+    }
+
+    if len(set([answer1, answer2, answer3])) != 3:
+        return 'Please select three different options.'
+
+    if all([correct_answers[answer1] == answer2, correct_answers[answer2] == answer3]):
+        return f'Congratulations! The number is {number}.'
+    else:
+        return 'Sorry, your answers are incorrect. Please try again.'
+
 
 @app.route('/challenge4')
 def challenge4():
