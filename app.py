@@ -92,7 +92,6 @@ def login():
 
 # define challenges route and function
 @app.route('/challenges')
-@login_required
 def challenges():
     return render_template('home.html')
 
