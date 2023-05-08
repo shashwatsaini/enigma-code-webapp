@@ -60,22 +60,30 @@ def wait():
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     if request.method == 'POST':
+        print("_______  ENTER POST CAPTURE  ______")
         team_number = request.form['team_number']
+        print(team_number)
         code = request.form['code']
+        print(code)
 
         # validate user credentials
         user = users.get(team_number)
+
         if user is not None and user.code == code:
+            print("--- USER VALID IN DATABASE ---")
             # check if user is already logged in
             if user.session_id and session.get('session_id') != user.session_id:
+                print('DOUBLE DEVICE LOGIN -- ATTEMPT')
                 flash('Another device is already logged in with this account.')
                 return redirect(url_for('login'))
 
             # login the user
             user.login()
+            print("LOG-IN Successful")
             flash('Logged in successfully.')
             return redirect(url_for('challenges'))
         else:
+            print('Invalid team number or code...')
             flash('Invalid team number or code...')
             return redirect(url_for('login'))
 
