@@ -40,7 +40,8 @@ class User(UserMixin):
 # define user credentials
 users = {
     '1': User('1', 'pass'),
-    '2': User('2', 'pass')
+    '2': User('2', 'pass'),
+    '3': User('3', 'pass')
 }
 
 # define user_loader function
@@ -75,7 +76,7 @@ def login():
             flash('Logged in successfully.')
             return redirect(url_for('challenges'))
         else:
-            flash('Invalid team number or code.')
+            flash('Invalid team number or code...')
             return redirect(url_for('login'))
 
     return render_template('login.html')
