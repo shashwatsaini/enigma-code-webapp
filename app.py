@@ -1,7 +1,7 @@
 import math
 from random import random
 
-from flask import Flask, render_template, redirect, url_for, flash, request
+from flask import Flask, render_template, redirect, url_for, flash, request, jsonify
 from flask_login import LoginManager, UserMixin, login_user, logout_user, login_required, current_user
 from flask import session
 from uuid import uuid4
@@ -17,6 +17,7 @@ login_manager.init_app(app)
 login_manager.login_view = 'login'
 
 
+enigma_code = "ABCD123456"
 
 class User(UserMixin):
     def __init__(self, team_number, code):
@@ -107,9 +108,9 @@ def challenge1():
 @app.route('/challenge1-validator', methods=['POST'])
 def challenge1_validator():
     answer = request.form['answer']
-    number = request.form['number']
+    number = enigma_code[0]
     if answer == 'Narnia is coming':
-        return render_template('challenge1.html', number=7, result='Congratulations!')
+        return render_template('challenge1.html', number=number, result='Congratulations!')
     else:
         return render_template('challenge1.html', number=None, result='Try again!')
 
@@ -126,7 +127,7 @@ def challenge2_validator():
     riddle1_answer = request.form.get('riddle1')
     riddle2_answer = request.form.get('riddle2')
     riddle3_answer = request.form.get('riddle3')
-    number = 5
+    number = enigma_code[1]
 
     if riddle1_answer.lower() == 'javascript' and riddle2_answer.lower() == 'css' and riddle3_answer.lower() == 'ada lovelace':
         return render_template('challenge2.html', result=number)
@@ -170,7 +171,7 @@ def challenge4_validator():
         row, col = map(int, position.split(','))
         chessboard[row][col] = 1
     if is_valid_chessboard(chessboard):
-        number = calculate_number(chessboard)
+        number = enigma_code[3]
         return str(number)
     else:
         return '', 400
@@ -248,7 +249,7 @@ def challenge7_validator():
     num = request.form['number']
     print(num)
     num = int(num)
-    number = 4
+    number = enigma_code[6]
     print(number)
     if answer == num:
         print("ENTER IF")
@@ -273,7 +274,7 @@ def challenge8_validator():
     num = request.form['number']
     print(num)
     num = int(num)
-    number = 4
+    number = enigma_code[7]
     print(number)
     if answer == num:
         print("ENTER IF")
@@ -292,13 +293,13 @@ def challenge9():
     return render_template('challenge9.html', number=None)
 
 @app.route('/challenge9-validator', methods=['POST'])
-def challenge8_validator():
+def challenge9_validator():
     global answer
     print("-- ENTER VALIDATOR --")
     num = request.form['number']
     print(num)
     num = int(num)
-    number = 4
+    number = enigma_code[8]
     print(number)
     if answer == num:
         print("ENTER IF")
@@ -318,13 +319,13 @@ def challenge10():
     return render_template('challenge10.html', number=None)
 
 @app.route('/challenge10-validator', methods=['POST'])
-def challenge8_validator():
+def challenge10_validator():
     global answer
     print("-- ENTER VALIDATOR --")
     num = request.form['number']
     print(num)
     num = int(num)
-    number = 4
+    number = enigma_code[9]
     print(number)
     if answer == num:
         print("ENTER IF")
@@ -333,6 +334,16 @@ def challenge8_validator():
         print("ENTER ELSE")
         return render_template('challenge10.html', number=None, result='Try again!')
 
+
+@app.route('/enigma-validator-render')
+def enigma_validator_render():
+    return render_template('enigma_validator.html')
+@app.route('/enigma-validator', methods=['POST'])
+def validate_enigma_code():
+    global enigma_code
+    code = request.json['code']
+    matrix = [1 if c == enigma_code[i] else 0 for i, c in enumerate(code)]
+    return jsonify(matrix)
 
 # define logout route and function
 @app.route('/logout')

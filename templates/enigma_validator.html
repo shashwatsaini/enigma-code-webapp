@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Enigma Code Checker</title>
+<!-- Bootstrap -->
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+	<!-- jQuery -->
+	<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+	<!-- Popper.js -->
+	<script src="https://unpkg.com/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+	<!-- Bootstrap JS -->
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+	<style>
+		.valid { color: green; }
+		.invalid { color: red; }
+	</style>
+</head>
+<body>
+	<div class="container mt-5">
+		<h1 class="text-center">Enigma Code Checker</h1>
+		<form id="enigma-form" class="mt-5">
+			<div class="form-group row">
+				<label for="enigma-code" class="col-sm-2 col-form-label">Enter Enigma Code:</label>
+				<div class="col-sm-10">
+					<input type="text" class="form-control" id="enigma-code" name="enigma-code" maxlength="10">
+				</div>
+			</div>
+			<div class="form-group row">
+				<div class="col-sm-10 offset-sm-2">
+					<button type="submit" class="btn btn-primary">Check Code</button>
+				</div>
+			</div>
+		</form>
+		<div id="enigma-result" class="mt-3"></div>
+	</div>
+
+	<script>
+		const form = document.querySelector('#enigma-form');
+		const result = document.querySelector('#enigma-result');
+
+		form.addEventListener('submit', async (event) => {
+			event.preventDefault();
+			const code = form.elements['enigma-code'].value;
+			const response = await fetch('/enigma-validator', {
+				method: 'POST',
+				headers: { 'Content-Type': 'application/json' },
+				body: JSON.stringify({ code })
+			});
+			const matrix = await response.json();
+
+			if (matrix.includes(0)) {
+				// Invalid code, display error message
+				result.innerHTML = `<p class="invalid">Invalid code. Please try again with correct numbers.</p>`;
+			} else {
+				// Valid code, display success message
+				result.innerHTML = `<p class="valid">Success! String "${code}" received.</p>`;
+			}
+
+			for (let i = 0; i < 3; i++) {
+				if (matrix[i] === 0) {
+					// Invalid digit, remove from HTML
+					form.elements['enigma-code'].value = form.elements['enigma-code'].value.replace(code[i], '');
+				} else {
+					// Valid digit, highlight in green
+					$(`#enigma-code:nth-child(${i+1})`).addClass('valid');
+				}
+			}
+		});
+	</script>
+	<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+        integrity="sha384-Q6E9RH6N/7OtZOwrzmk8KdJuo7iA4kyQqVg/AuqWJ9WOZr1EiIgg5D8OKojWnPdU"
+        crossorigin="anonymous"></script>
+
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
+ 	    integrity="sha384-OgVRvuATP1z7JjHLkuOU6Xw7046jvU4PKzFVY2mlVfCkZ8OeZ7CYwKTxOwuMhXsT"
+ 	    crossorigin="anonymous"></script>
+
+</body>
+</html>
