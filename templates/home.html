@@ -2,12 +2,14 @@
 <html>
 <head>
 	<title>Enigma Quest</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 	<style>
-		body {
-			margin: 0;
-			padding: 0;
-		}
-		iframe {
+        iframe {
 			position: fixed;
 			top: 0;
 			left: 0;
@@ -15,9 +17,30 @@
 			height: 100%;
 			z-index: -1;
 		}
+		body {
+			margin: 0;
+			padding: 0;
+			background-color: #333333;
+			color: #ffffff;
+			font-family: Arial, sans-serif;
+			font-weight: bold;
+			font-size: 16px;
+		}
+		.dropdown-menu {
+			background-color: #4c2f1d;
+			border: none;
+			box-shadow: none;
+		}
+		.dropdown-item {
+			color: #ffffff;
+			font-weight: bold;
+		}
+		.dropdown-item:hover {
+			background-color: #a45a3a;
+		}
 		.buttons {
 			position: fixed;
-			top: 0;
+			top: 50px;
 			display: flex;
 			flex-wrap: wrap;
 			justify-content: space-between;
@@ -26,10 +49,24 @@
 			width: 100%;
 			padding: 20px;
 		}
+		.buttons {
+			position: fixed;
+			top: 50px;
+			display: grid;
+			grid-template-columns: repeat(2, 1fr);
+			gap: 100px;
+			justify-items: center;
+			align-items: center;
+			z-index: 1;
+			width: 100%;
+			padding: 20px;
+		}
 		.button {
-			display: inline-block;
-			width: 150px;
-			height: 150px;
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1px;
+			width: 15px;
+			height: 15px;
 			background-image: url('path/to/image.png');
 			background-size: contain;
 			background-repeat: no-repeat;
@@ -50,18 +87,44 @@
 	</style>
 </head>
 <body>
-	<div class="sketchfab-embed-wrapper"> <iframe title="Space exploration [WLP series #8]" frameborder="0" allowfullscreen mozallowfullscreen="true" webkitallowfullscreen="true" allow="autoplay; fullscreen; xr-spatial-tracking" xr-spatial-tracking execution-while-out-of-viewport execution-while-not-rendered web-share src="https://sketchfab.com/models/91964c1ce1a34c3985b6257441efa500/embed?autospin=1&autostart=1&ui_hint=0&ui_theme=dark"> </iframe> </div>
+
+
+	<nav class="navbar navbar-expand-md bg-dark navbar-dark fixed-top">
+		<div class="container">
+			<a class="navbar-brand" href="#">Enigma Quest</a>
+			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+			<div class="collapse navbar-collapse" id="collapsibleNavbar">
+				<ul class="navbar-nav ml-auto">
+					<li class="nav-item dropdown">
+						<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+							Menu
+						</a>
+						<div class="dropdown-menu" aria-labelledby="navbarDropdown">
+							<a class="dropdown-item" href="#">Company Link</a>
+							<a class="dropdown-item" href="#">About Page</a>
+						</div>
+					</li>
+				</ul>
+                </div>
+		</div>
+	</nav>
+<div class="buttons">
 	<div class="buttons">
-		<a href="{{ url_for('challenge1') }}" class="button"><span class="sr-only">Challenge 1</span></a>
-		<a href="{{ url_for('challenge2') }}" class="button"><span class="sr-only">Challenge 2</span></a>
-		<a href="{{ url_for('challenge3') }}" class="button"><span class="sr-only">Challenge 3</span></a>
-		<a href="{{ url_for('challenge4') }}" class="button"><span class="sr-only">Challenge 4</span></a>
-		<a href="{{ url_for('challenge5') }}" class="button"><span class="sr-only">Challenge 5</span></a>
-		<a href="{{ url_for('challenge6') }}" class="button"><span class="sr-only">Challenge 6</span></a>
-		<a href="{{ url_for('challenge7') }}" class="button"><span class="sr-only">Challenge 7</span></a>
-		<a href="{{ url_for('challenge8') }}" class="button"><span class="sr-only">Challenge 8</span></a>
-		<a href="{{ url_for('challenge9') }}" class="button"><span class="sr-only">Challenge 9</span></a>
-		<a href="{{ url_for('challenge10') }}" class="button"><span class="sr-only">Challenge 10</span></a>
-	</div>
+	<a href="{{ url_for('challenge1') }}" class="button">Challenge 1</a>
+	<a href="{{ url_for('challenge2') }}" class="button">Challenge 2</a>
+	<a href="{{ url_for('challenge3') }}" class="button">Challenge 3</a>
+	<a href="{{ url_for('challenge4') }}" class="button">Challenge 4</a>
+	<a href="{{ url_for('challenge5') }}" class="button">Challenge 5</a>
+	<a href="{{ url_for('challenge6') }}" class="button">Challenge 6</a>
+	<a href="{{ url_for('challenge7') }}" class="button">Challenge 7</a>
+	<a href="{{ url_for('challenge8') }}" class="button">Challenge 8</a>
+	<a href="{{ url_for('challenge9') }}" class="button">Challenge 9</a>
+	<a href="{{ url_for('challenge10') }}" class="button">Challenge 10</a>
+</div>
+
+</div>
+
 </body>
 </html>

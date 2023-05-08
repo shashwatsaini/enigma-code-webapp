@@ -1,5 +1,8 @@
 from flask import Flask, render_template, redirect, url_for, flash, request
-from flask_login import LoginManager, UserMixin, login_user, logout_user, login_required
+from flask_login import LoginManager, UserMixin, login_user, logout_user, login_required, current_user
+from flask import session
+from uuid import uuid4
+
 
 # create Flask app and configure session
 app = Flask(__name__)
@@ -10,17 +13,29 @@ login_manager = LoginManager()
 login_manager.init_app(app)
 login_manager.login_view = 'login'
 
-# create User model
+
+
 class User(UserMixin):
     def __init__(self, team_number, code):
         self.team_number = team_number
         self.code = code
+        self.session_id = None
 
     def get_id(self):
         return str(self.team_number)
 
     def __repr__(self):
         return f'<User {self.team_number}>'
+
+    def login(self):
+        self.session_id = str(uuid4())
+        session['user_id'] = self.get_id()
+        session['session_id'] = self.session_id
+
+    def logout(self):
+        self.session_id = None
+        session.pop('user_id', None)
+        session.pop('session_id', None)
 
 # define user credentials
 users = {
@@ -50,7 +65,13 @@ def login():
         # validate user credentials
         user = users.get(team_number)
         if user is not None and user.code == code:
-            login_user(user)
+            # check if user is already logged in
+            if user.session_id and session.get('session_id') != user.session_id:
+                flash('Another device is already logged in with this account.')
+                return redirect(url_for('login'))
+
+            # login the user
+            user.login()
             flash('Logged in successfully.')
             return redirect(url_for('challenges'))
         else:
@@ -58,6 +79,7 @@ def login():
             return redirect(url_for('login'))
 
     return render_template('login.html')
+
 
 # define challenges route and function
 @app.route('/challenges')
@@ -130,6 +152,65 @@ def challenge3_validator(number, answer1, answer2, answer3):
 def challenge4():
     return render_template('challenge4.html')
 
+@app.route('/challenge4-validator', methods=['POST'])
+def challenge4_validator():
+    chessboard = [[0] * 8 for _ in range(8)]
+    for position in request.form.getlist('chessboard[]'):
+        row, col = map(int, position.split(','))
+        chessboard[row][col] = 1
+    if is_valid_chessboard(chessboard):
+        number = calculate_number(chessboard)
+        return str(number)
+    else:
+        return '', 400
+
+def is_valid_chessboard(chessboard):
+    for row in range(8):
+        queens_in_row = sum(chessboard[row])
+        if queens_in_row > 1:
+            return False
+        elif queens_in_row == 1:
+            col = chessboard[row].index(1)
+            for i in range(col-1, -1, -1): # check left side of the row
+                if chessboard[row][i] == 1:
+                    return False
+            for i in range(col+1, 8): # check right side of the row
+                if chessboard[row][i] == 1:
+                    return False
+            for col in range(8):
+                queens_in_col = sum([chessboard[row][col] for row in range(8)])
+                if queens_in_col > 1:
+                    return False
+                elif queens_in_col == 1:
+                    row = [chessboard[row][col] for row in range(8)].index(1)
+                    for i in range(row - 1, -1, -1):  # check above the column
+                        if chessboard[i][col] == 1:
+                            return False
+                    for i in range(row + 1, 8):  # check below the column
+                        if chessboard[i][col] == 1:
+                            return False
+
+            for row in range(8):
+                for col in range(8):
+                    if chessboard[row][col] == 1:
+                        for i, j in zip(range(row - 1, -1, -1), range(col - 1, -1, -1)):  # check top-left diagonal
+                            if chessboard[i][j] == 1:
+                                return False
+                        for i, j in zip(range(row - 1, -1, -1), range(col + 1, 8)):  # check top-right diagonal
+                            if chessboard[i][j] == 1:
+                                return False
+                        for i, j in zip(range(row + 1, 8), range(col - 1, -1, -1)):  # check bottom-left diagonal
+                            if chessboard[i][j] == 1:
+                                return False
+                        for i, j in zip(range(row + 1, 8), range(col + 1, 8)):  # check bottom-right diagonal
+                            if chessboard[i][j] == 1:
+                                return False
+
+            return True
+def calculate_number(chessboard):
+    columns = [chessboard[row].index(1) for row in range(8)]
+    return sum([columns[i] * (10 ** (7-i)) for i in range(8)])
+
 @app.route('/challenge5')
 def challenge5():
     return render_template('challenge5.html')
@@ -158,7 +239,7 @@ def challenge10():
 @app.route('/logout')
 @login_required
 def logout():
-    logout_user()
+    current_user.logout()
     flash('Logged out successfully.')
     return redirect(url_for('login'))
 

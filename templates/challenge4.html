@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Challenge 4: Eight Queens Puzzle</title>
+	<style>
+		#chessboard {
+			border-collapse: collapse;
+			margin: 0 auto;
+		}
+		#chessboard td {
+			width: 50px;
+			height: 50px;
+			text-align: center;
+			vertical-align: middle;
+			border: 1px solid black;
+			background-color: white;
+			cursor: pointer;
+		}
+		#chessboard .queen {
+			background-image: url('../static/queen.png');
+			background-size: contain;
+			background-repeat: no-repeat;
+		}
+	</style>
+</head>
+<body>
+	<h1>Challenge 4: Eight Queens Puzzle</h1>
+	<p>Place 8 queens on the chessboard such that no two queens cross paths:</p>
+	<form id="chessboard-form">
+		<table id="chessboard">
+			<tbody>
+				{% for row in range(8) %}
+				<tr>
+					{% for col in range(8) %}
+					<td>
+						<input type="checkbox" name="chessboard[]" value="{{ row }},{{ col }}" id="checkbox-{{ row }}-{{ col }}">
+						<label for="checkbox-{{ row }}-{{ col }}" style="background-image: none;"></label>
+					</td>
+					{% endfor %}
+				</tr>
+				{% endfor %}
+			</tbody>
+		</table>
+		<br>
+		<input type="submit" value="Submit">
+	</form>
+	<div id="result"></div>
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+	<script>
+		$(document).ready(function() {
+			$('#chessboard-form').submit(function(event) {
+				event.preventDefault();
+				$.ajax({
+					type: 'POST',
+					url: '/challenge4-validator',
+					data: $(this).serialize(),
+					success: function(response) {
+						let queens = response.split(',');
+						for (let i = 0; i < queens.length; i++) {
+							let queenPosition = queens[i].split('-');
+							let row = parseInt(queenPosition[0]);
+							let col = parseInt(queenPosition[1]);
+							$('#checkbox-' + row + '-' + col).next('label').css('background-image', 'url("../static/queen.png")');
+						}
+						$('#result').html('<p>Success! Here is the number: ' + queens.length + '</p>');
+					},
+					error: function() {
+						$('#result').html('<p>Try again.</p>');
+					}
+				});
+			});
+		});
+	</script>
+</body>
+</html>
