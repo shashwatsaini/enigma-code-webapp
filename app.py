@@ -1,3 +1,6 @@
+import math
+from random import random
+
 from flask import Flask, render_template, redirect, url_for, flash, request
 from flask_login import LoginManager, UserMixin, login_user, logout_user, login_required, current_user
 from flask import session
@@ -227,21 +230,109 @@ def challenge5():
 def challenge6():
     return render_template('challenge6.html')
 
+answer = None
 @app.route('/challenge7')
 def challenge7():
-    return render_template('challenge7.html')
+    global answer
+    # Generate 4 random numbers between 1 and 10
+    A, B, C, D = [7,6,7,6]
+    # Compute the answer based on the formula
+    answer = int(math.sqrt(A - B) + math.pow(C, 3) - math.pow(C - D, 2) + 2)
+    print(answer)
+    return render_template('challenge7.html', number=None)
+
+@app.route('/challenge7-validator', methods=['POST'])
+def challenge7_validator():
+    global answer
+    print("-- ENTER VALIDATOR --")
+    num = request.form['number']
+    print(num)
+    num = int(num)
+    number = 4
+    print(number)
+    if answer == num:
+        print("ENTER IF")
+        return render_template('challenge7.html', number=number, result='Congratulations!')
+    else:
+        print("ENTER ELSE")
+        return render_template('challenge7.html', number=None, result='Try again!')
+
 
 @app.route('/challenge8')
 def challenge8():
-    return render_template('challenge8.html')
+    global answer
+    A, B, C, D = [7,6,7,6]
+    answer = int(math.sqrt(A - B) + math.pow(C, 3) - math.pow(C - D, 2) + 2)
+    print(answer)
+    return render_template('challenge8.html', number=None)
+
+@app.route('/challenge8-validator', methods=['POST'])
+def challenge8_validator():
+    global answer
+    print("-- ENTER VALIDATOR --")
+    num = request.form['number']
+    print(num)
+    num = int(num)
+    number = 4
+    print(number)
+    if answer == num:
+        print("ENTER IF")
+        return render_template('challenge8.html', number=number, result='Congratulations!')
+    else:
+        print("ENTER ELSE")
+        return render_template('challenge8.html', number=None, result='Try again!')
+
 
 @app.route('/challenge9')
 def challenge9():
-    return render_template('challenge9.html')
+    global answer
+    A, B, C, D = [7,6,7,6]
+    answer = int(math.sqrt(A - B) + math.pow(C, 3) - math.pow(C - D, 2) + 2)
+    print(answer)
+    return render_template('challenge9.html', number=None)
+
+@app.route('/challenge9-validator', methods=['POST'])
+def challenge8_validator():
+    global answer
+    print("-- ENTER VALIDATOR --")
+    num = request.form['number']
+    print(num)
+    num = int(num)
+    number = 4
+    print(number)
+    if answer == num:
+        print("ENTER IF")
+        return render_template('challenge9.html', number=number, result='Congratulations!')
+    else:
+        print("ENTER ELSE")
+        return render_template('challenge9.html', number=None, result='Try again!')
+
+
 
 @app.route('/challenge10')
 def challenge10():
-    return render_template('challenge10.html')
+    global answer
+    A, B, C, D = [7,6,7,6]
+    answer = int(math.sqrt(A - B) + math.pow(C, 3) - math.pow(C - D, 2) + 2)
+    print(answer)
+    return render_template('challenge10.html', number=None)
+
+@app.route('/challenge10-validator', methods=['POST'])
+def challenge8_validator():
+    global answer
+    print("-- ENTER VALIDATOR --")
+    num = request.form['number']
+    print(num)
+    num = int(num)
+    number = 4
+    print(number)
+    if answer == num:
+        print("ENTER IF")
+        return render_template('challenge10.html', number=number, result='Congratulations!')
+    else:
+        print("ENTER ELSE")
+        return render_template('challenge10.html', number=None, result='Try again!')
+
 
 # define logout route and function
 @app.route('/logout')
