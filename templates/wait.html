@@ -19,7 +19,7 @@
   left: 0;
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  object-fit: fill;
 }
 
         @media only screen and (min-width: 768px) {
@@ -48,7 +48,7 @@
     <video autoplay loop muted>
         <source src="../static/laptop-intro.mp4" type="video/mp4">
     </video>
-    <audio autoplay loop id="mobile-video" muted>
+    <audio autoplay loop id="mobile-video" muted playsinline poster="../static/poster.png">
         <source src="../static/mobile-intro.mp4" type="video/mp4">
     </audio>
 </body>
