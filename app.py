@@ -33,10 +33,31 @@ class User(UserMixin):
         session.pop('user_id', None)
         session.pop('session_id', None)
 users = {
-    '1': User('1', 'pass'),
-    '2': User('2', 'pass'),
-    '3': User('3', 'pass')
-}
+    'Team_01': User('Team_01', '1325609313'),
+    'Team_02': User('Team_02', '2289067155'),
+    'Team_03': User('Team_03', '3428589256'),
+    'Team_04': User('Team_04', '0481345038'),
+    'Team_05': User('Team_05', '5902394953'),
+    'Team_06': User('Team_06', '4942522877'),
+    'Team_07': User('Team_07', '3466675718'),
+    'Team_08': User('Team_08', '6002842080'),
+    'Team_09': User('Team_0', '1845326422'),
+    'Team_10': User('Team_10', '2354781676'),
+    'Team_11': User('Team_11', '3484094425'),
+    'Team_12': User('Team_12', '0580755304'),
+    'Team_13': User('Team_13', '4164845592'),
+    'Team_14': User('Team_14', '8694537408'),
+    'Team_15': User('Team_15', '1686370263'),
+    'Team_16': User('Team_16', '3251818970'),
+    'Team_17': User('Team_17', '9860061699'),
+    'Team_18': User('Team_18', '8256083990'),
+    'Team_19': User('Team_19', '4035639024'),
+    'Admin_1': User('Admin_1', '3160563914'),
+    'Admin_2': User('Admin_2', '2751354176'),
+    'Admin_3': User('Admin_3', '1054178774'),
+    'Admin_4': User('Admin_4', '7017760686'),
+
+   }
 @login_manager.user_loader
 def load_user(user_id):
     return users.get(user_id)
