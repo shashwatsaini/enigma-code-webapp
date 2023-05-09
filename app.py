@@ -41,7 +41,7 @@ users = {
     'Team_06': User('Team_06', '4942522877'),
     'Team_07': User('Team_07', '3466675718'),
     'Team_08': User('Team_08', '6002842080'),
-    'Team_09': User('Team_0', '1845326422'),
+    'Team_09': User('Team_09', '1845326422'),
     'Team_10': User('Team_10', '2354781676'),
     'Team_11': User('Team_11', '3484094425'),
     'Team_12': User('Team_12', '0580755304'),
