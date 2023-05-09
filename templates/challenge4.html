@@ -2,7 +2,9 @@
 <html>
 <head>
 	<title>Challenge 4: Eight Queens Puzzle</title>
-	<style>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+		<style>
 		#chessboard {
 			border-collapse: collapse;
 			margin: 0 auto;
@@ -21,9 +23,49 @@
 			background-size: contain;
 			background-repeat: no-repeat;
 		}
+		#chessboard tr:nth-child(odd) td:nth-child(even),
+		#chessboard tr:nth-child(even) td:nth-child(odd) {
+			background-color: #8B4513;
+		}
+		#chessboard th {
+			width: 50px;
+			height: 50px;
+			text-align: center;
+			vertical-align: middle;
+			border: 1px solid black;
+			background-color: #8B4513;
+			color: white;
+			font-weight: bold;
+		}
 	</style>
 </head>
 <body>
+    	<nav class="navbar navbar-expand-md bg-dark navbar-dark fixed-top">
+		<div class="container">
+			<a class="navbar-brand" href="/i5i5rsuopeyr10cov4ovuev06cb1sxchallenges">Enigma Quest</a>
+			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+			<div class="collapse navbar-collapse" id="collapsibleNavbar">
+				<ul class="navbar-nav ml-auto">
+					<li class="nav-item dropdown">
+						<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+							Menu
+						</a>
+						<div class="dropdown-menu" aria-labelledby="navbarDropdown">
+							<a class="dropdown-item" href="{{ url_for('enigma_validator_render') }}">Enigma Validator</a>
+                            <a class="dropdown-item" href="{{url_for('about')}}">About Page</a>
+							<a class="dropdown-item" href="{{url_for('company_link')}}">Company Link</a>
+						</div>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</nav>
+
+
+
+
 	<h1>Challenge 4: Eight Queens Puzzle</h1>
 	<p>Place 8 queens on the chessboard such that no two queens cross paths:</p>
 	<form id="chessboard-form">
@@ -46,30 +88,39 @@
 	</form>
 	<div id="result"></div>
 	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-	<script>
-		$(document).ready(function() {
-			$('#chessboard-form').submit(function(event) {
-				event.preventDefault();
-				$.ajax({
-					type: 'POST',
-					url: '/challenge4-validator',
-					data: $(this).serialize(),
-					success: function(response) {
-						let queens = response.split(',');
-						for (let i = 0; i < queens.length; i++) {
-							let queenPosition = queens[i].split('-');
-							let row = parseInt(queenPosition[0]);
-							let col = parseInt(queenPosition[1]);
-							$('#checkbox-' + row + '-' + col).next('label').css('background-image', 'url("../static/queen.png")');
-						}
-						$('#result').html('<p>Success! Here is the number: ' + queens.length + '</p>');
-					},
-					error: function() {
-						$('#result').html('<p>Try again.</p>');
-					}
-				});
-			});
-		});
-	</script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script>
+$(document).ready(function() {
+  $('#chessboard-form').submit(function(event) {
+    event.preventDefault();
+    let checkedCount = $('input[name="chessboard[]"]:checked').length;
+    if (checkedCount !== 8) {
+      $('#result').html('<p>Please select exactly 8 squares.</p>');
+      return false;
+    }
+    $.ajax({
+      type: 'POST',
+      url: '/challenge4-validator',
+      data: $(this).serialize(),
+      success: function(response) {
+        let queens = response.split(',');
+        for (let i = 0; i < queens.length; i++) {
+          let queenPosition = queens[i].split('-');
+          let row = parseInt(queenPosition[0]);
+          let col = parseInt(queenPosition[1]);
+          $('#checkbox-' + row + '-' + col).next('label').css('background-image', 'url("../static/queen.png")');
+        }
+        $('#result').html('<p>Success! Here is the number: ' + response + '</p>');
+      },
+      error: function() {
+        $('#result').html('<p>Try again.</p>');
+      }
+    });
+  });
+});
+</script>
+
+
 </body>
 </html>

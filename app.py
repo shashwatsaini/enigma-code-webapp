@@ -84,7 +84,7 @@ def login():
             # login the user
             user.login()
             print("LOG-IN Successful")
-            flash('Logged in successfully.')
+            flash('Log in with given password.')
             return redirect(url_for('challenges'))
         else:
             print('Invalid team number or code...')
@@ -95,10 +95,18 @@ def login():
 
 
 # define challenges route and function
-@app.route('/challenges')
+@app.route('/i5i5rsuopeyr10cov4ovuev06cb1sxchallenges')
 def challenges():
     return render_template('home.html')
 
+
+@app.route('/about')
+def about():
+    return render_template('about.html')
+
+@app.route('/company-link')
+def company_link():
+    return redirect('https://linktr.ee/turingthoughts')
 
 # define routes for challenges
 @app.route('/challenge1')
