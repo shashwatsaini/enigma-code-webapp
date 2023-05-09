@@ -20,8 +20,9 @@
 		body {
 			margin: 0;
 			padding: 0;
-			background-color: #333333;
-			color: #ffffff;
+            background-image: url('../static/poster-l.png');
+			background-color: #fafafa;
+			color: #000000;
 			font-family: Arial, sans-serif;
 			font-weight: bold;
 			font-size: 16px;
@@ -39,57 +40,64 @@
 			background-color: #a45a3a;
 		}
 		.buttons {
-			position: fixed;
-			top: 50px;
-			display: flex;
-			flex-wrap: wrap;
-			justify-content: space-between;
-			align-items: center;
-			z-index: 1;
-			width: 100%;
-			padding: 20px;
-		}
-		.buttons {
-			position: fixed;
-			top: 50px;
 			display: grid;
 			grid-template-columns: repeat(2, 1fr);
-			gap: 100px;
+			grid-template-rows: repeat(5, 1fr);
+			gap: 20px;
 			justify-items: center;
 			align-items: center;
 			z-index: 1;
 			width: 100%;
+			height: 100%;
 			padding: 20px;
+			box-sizing: border-box;
+			position: absolute;
+			top: 10%;
+			left: 0;
 		}
 		.button {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 1px;
-			width: 15px;
-			height: 15px;
-			background-image: url('path/to/image.png');
-			background-size: contain;
-			background-repeat: no-repeat;
-			background-position: center;
+            width: 200px;
+            height: 130px;
+			background-color: #a45a3a;
+			color: #ffffff;
+			font-weight: bold;
+			font-size: 16px;
+			padding: 10px 20px;
 			border: none;
 			cursor: pointer;
 			box-shadow: 0 5px 10px rgba(0,0,0,0.2);
 			transition: transform 0.2s ease-out;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
 		}
+        .button img {
+  max-width: 100%;
+  max-height: 100%;
+}
 		.button:hover {
 			transform: translateY(-5px);
 			box-shadow: 0 8px 15px rgba(0,0,0,0.3);
 		}
 		.button:active {
 			transform: translateY(0px);
-			box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+			box-shadow: 0 2px 5px rgb(46, 74, 84);
 		}
+        @media only screen and (max-width: 768px) {
+            .buttons {
+                grid-template-columns: repeat(1, 1fr);
+                grid-template-rows: repeat(10, 1fr);
+                gap: 10px;
+            }
+            .button {
+                width: 100%;
+            }
+        }
 	</style>
 </head>
 <body>
-
-
-	<nav class="navbar navbar-expand-md bg-dark navbar-dark fixed-top">
+<nav class="navbar navbar-expand-md bg-dark navbar-dark fixed-top">
 		<div class="container">
 			<a class="navbar-brand" href="/i5i5rsuopeyr10cov4ovuev06cb1sxchallenges">Enigma Quest</a>
 			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
@@ -111,21 +119,53 @@
                 </div>
 		</div>
 	</nav>
+
+
+
+
 <div class="buttons">
-	<div class="buttons">
-	<a href="{{ url_for('challenge1') }}" class="button">Challenge 1</a>
-	<a href="{{ url_for('challenge2') }}" class="button">Challenge 2</a>
-	<a href="{{ url_for('challenge3') }}" class="button">Challenge 3</a>
-	<a href="{{ url_for('challenge4') }}" class="button">Challenge 4</a>
-	<a href="{{ url_for('challenge5') }}" class="button">Challenge 5</a>
-	<a href="{{ url_for('challenge6') }}" class="button">Challenge 6</a>
-	<a href="{{ url_for('challenge7') }}" class="button">Challenge 7</a>
-	<a href="{{ url_for('challenge8') }}" class="button">Challenge 8</a>
-	<a href="{{ url_for('challenge9') }}" class="button">Challenge 9</a>
-	<a href="{{ url_for('challenge10') }}" class="button">Challenge 10</a>
+	<a href="{{ url_for('challenge1') }}" class="button">
+        <img src="../static/bg-1.png" alt="button image">
+        Decrypt Me
+    </a>
+    <a href="{{ url_for('challenge2') }}" class="button">
+        <img src="../static/bg-2.png" alt="button image">
+        Quizzz
+    </a>
+    <a href="{{ url_for('challenge3') }}" class="button">
+        <img src="../static/bg-3.png" alt="button image">
+        HuRidle
+    </a>
+    <a href="{{ url_for('challenge4') }}" class="button">
+        <img src="../static/bg-4.png" alt="button image">
+        Check_Mate !!
+    </a>
+    <a href="{{ url_for('challenge5') }}" class="button">
+        <img src="../static/bg-5.png" alt="button image">
+        Pattern Up !
+    </a>
+    <a href="{{ url_for('challenge6') }}" class="button">
+        <img src="../static/bg-6.png" alt="button image">
+        Unscramble Ramble !
+    </a>
+    <a href="{{ url_for('challenge7') }}" class="button">
+        <img src="../static/bg-7.png" alt="button image">
+        Quater 1!
+    </a>
+    <a href="{{ url_for('challenge8') }}" class="button">
+        <img src="../static/bg-8.png" alt="button image">
+        Quater 2!
+    </a>
+    <a href="{{ url_for('challenge9') }}" class="button">
+        <img src="../static/bg-9.png" alt="button image">
+        Quater 3!
+    </a>
+    <a href="{{ url_for('challenge10') }}" class="button">
+        <img src="../static/bg-10.png" alt="button image">
+        Quater 4!
+    </a>
 </div>
 
-</div>
 
 </body>
 </html>
