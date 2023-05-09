@@ -130,11 +130,11 @@ print("--------------------------   CHALLENGES   -------------------------------
 print("                       ONE 1. ENCRYPTION CHALLENGE                              ")
 
 
-@app.route('/challenge1')
+@app.route('/i5i5rsuopeyr10cov4ovuev06cb1sxchallenge1')
 def challenge1():
     return render_template('challenge1.html')
 
-@app.route('/challenge1-validator', methods=['POST'])
+@app.route('/i5i5rsuopeyr10cov4ovuev06cb1sxchallenge1-validator', methods=['POST'])
 def challenge1_validator():
     answer = request.form['answer'].strip().lower()
     number = enigma_code[0]
@@ -147,10 +147,10 @@ def challenge1_validator():
 
 print("-------------------------------------------------------------------------------")
 print("                        TWO 2. TECH-BASICS CHALLENGE                                 ")
-@app.route('/challenge2')
+@app.route('/i5i5rsuopeyr10cov4ovuev06cb1sxchallenge2')
 def challenge2():
     return render_template('challenge2.html')
-@app.route('/challenge2-validator', methods=['POST'])
+@app.route('/i5i5rsuopeyr10cov4ovuev06cb1sxchallenge2-validator', methods=['POST'])
 def challenge2_validator():
     riddle1_answer = request.form.get('riddle1')
     riddle2_answer = request.form.get('riddle2')
@@ -166,10 +166,10 @@ def challenge2_validator():
 
 print("-------------------------------------------------------------------------------")
 print("                        THREE 3. RIDDLE CHALLENGE                                 ")
-@app.route('/challenge3')
+@app.route('/i5i5rsuopeyr10cov4ovuev06cb1sxchallenge3')
 def challenge3():
     return render_template('challenge3.html')
-@app.route('/challenge3-validator', methods=['POST'])
+@app.route('/i5i5rsuopeyr10cov4ovuev06cb1sxchallenge3-validator', methods=['POST'])
 def challenge3_validator():
     riddle1_answer = request.form.get('riddle1')
     riddle2_answer = request.form.get('riddle2')
@@ -184,11 +184,11 @@ def challenge3_validator():
 
 print("-------------------------------------------------------------------------------")
 print("                        FOUR 4. CHESS QUEEN CHALLENGE                            ")
-@app.route('/challenge4')
+@app.route('/i5i5rsuopeyr10cov4ovuev06cb1sxchallenge4')
 def challenge4():
     return render_template('challenge4.html')
 
-@app.route('/challenge4-validator', methods=['POST'])
+@app.route('/i5i5rsuopeyr10cov4ovuev06cb1sxchallenge4-validator', methods=['POST'])
 def challenge4_validator():
     chessboard = [[0] * 8 for _ in range(8)]
     for position in request.form.getlist('chessboard[]'):
@@ -252,10 +252,10 @@ def calculate_number(chessboard):
 
 print("-------------------------------------------------------------------------------")
 print("                         FIVE 5. IMAGE CHALLENGE                               ")
-@app.route('/challenge5')
+@app.route('/i5i5rsuopeyr10cov4ovuev06cb1sxchallenge5')
 def challenge5():
     return render_template('challenge5.html')
-@app.route('/challenge5-validator', methods=['POST'])
+@app.route('/i5i5rsuopeyr10cov4ovuev06cb1sxchallenge5-validator', methods=['POST'])
 def challenge5_validator():
     answer1 = request.form.get('q1')
     answer2 = request.form.get('q2')
@@ -270,26 +270,26 @@ def challenge5_validator():
 
 print("-------------------------------------------------------------------------------")
 print("                          SIX 6. UNSCRAMBLE RAMBLE                             ")
-@app.route('/challenge6')
+@app.route('/i5i5rsuopeyr10cov4ovuev06cb1sxchallenge6')
 def challenge6():
     return render_template('challenge6.html')
 
-@app.route('/challenge6-validator', methods=['POST'])
+@app.route('/i5i5rsuopeyr10cov4ovuev06cb1sxchallenge6-validator', methods=['POST'])
 def challenge6_validator():
     question1_answer = request.form.get('question1')
     question2_answer = request.form.get('question2')
     number = enigma_code[5]
 
     if question1_answer.strip().lower() == 'parachute' and question2_answer.strip().lower() == 'anniversary':
-        return render_template('challenge3.html',number=number, result='SUCCESSFUL !')
+        return render_template('challenge6.html',number=number, result='SUCCESSFUL !')
     else:
-        return render_template('challenge3.html',number=None,  result='TRY AGAIN')
+        return render_template('challenge6.html',number=None,  result='TRY AGAIN')
 
 
 
 print("-------------------------------------------------------------------------------")
 print("                           SEVEN 7 . QUATER - 1                                 ")
-@app.route('/challenge7')
+@app.route('/i5i5rsuopeyr10cov4ovuev06cb1sxchallenge7')
 def challenge7():
     global answer
     # Generate 4 random numbers between 1 and 10
@@ -299,7 +299,7 @@ def challenge7():
     print(answer)
     return render_template('challenge7.html', number=None)
 
-@app.route('/challenge7-validator', methods=['POST'])
+@app.route('/i5i5rsuopeyr10cov4ovuev06cb1sxchallenge7-validator', methods=['POST'])
 def challenge7_validator():
     global answer
     print("-- ENTER VALIDATOR --")
@@ -319,14 +319,14 @@ def challenge7_validator():
 
 print("-------------------------------------------------------------------------------")
 print("                          EIGHT 8  . QUATER - 2                                 ")
-@app.route('/challenge8')
+@app.route('/i5i5rsuopeyr10cov4ovuev06cb1sxchallenge8')
 def challenge8():
     global answer
     A, B, C, D = [7,6,7,6]
     answer = int(math.sqrt(A - B) + math.pow(C, 3) - math.pow(C - D, 2) + 2)
     print(answer)
     return render_template('challenge8.html', number=None)
-@app.route('/challenge8-validator', methods=['POST'])
+@app.route('/i5i5rsuopeyr10cov4ovuev06cb1sxchallenge8-validator', methods=['POST'])
 def challenge8_validator():
     global answer
     print("-- ENTER VALIDATOR --")
@@ -345,14 +345,14 @@ def challenge8_validator():
 
 print("-------------------------------------------------------------------------------")
 print("                           NINE 9 . QUATER - 3                                 ")
-@app.route('/challenge9')
+@app.route('/i5i5rsuopeyr10cov4ovuev06cb1sxchallenge9')
 def challenge9():
     global answer
     A, B, C, D = [7,6,7,6]
     answer = int(math.sqrt(A - B) + math.pow(C, 3) - math.pow(C - D, 2) + 2)
     print(answer)
     return render_template('challenge9.html', number=None)
-@app.route('/challenge9-validator', methods=['POST'])
+@app.route('/i5i5rsuopeyr10cov4ovuev06cb1sxchallenge9-validator', methods=['POST'])
 def challenge9_validator():
     global answer
     print("-- ENTER VALIDATOR --")
@@ -371,14 +371,14 @@ def challenge9_validator():
 
 print("-------------------------------------------------------------------------------")
 print("                            TEN 10 . QUATER - 4                                 ")
-@app.route('/challenge10')
+@app.route('/i5i5rsuopeyr10cov4ovuev06cb1sxchallenge10')
 def challenge10():
     global answer
     A, B, C, D = [7,6,7,6]
     answer = int(math.sqrt(A - B) + math.pow(C, 3) - math.pow(C - D, 2) + 2)
     print(answer)
     return render_template('challenge10.html', number=None)
-@app.route('/challenge10-validator', methods=['POST'])
+@app.route('/i5i5rsuopeyr10cov4ovuev06cb1sxchallenge10-validator', methods=['POST'])
 def challenge10_validator():
     global answer
     print("-- ENTER VALIDATOR --")
