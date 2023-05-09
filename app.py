@@ -52,7 +52,7 @@ users = {
     'Team_17': User('Team_17', '9860061699'),
     'Team_18': User('Team_18', '8256083990'),
     'Team_19': User('Team_19', '4035639024'),
-    'Admin_1': User('Admin_1', '3160563914'),
+    'Admin_1': User('Admin_1', '9019458974'),
     'Admin_2': User('Admin_2', '2751354176'),
     'Admin_3': User('Admin_3', '1054178774'),
     'Admin_4': User('Admin_4', '7017760686'),
