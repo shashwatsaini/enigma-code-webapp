@@ -1,60 +1,51 @@
 import math
-from random import random
 
 from flask import Flask, render_template, redirect, url_for, flash, request, jsonify
-from flask_login import LoginManager, UserMixin, login_user, logout_user, login_required, current_user
+from flask_login import LoginManager, UserMixin, login_required, current_user
 from flask import session
 from uuid import uuid4
 
 
-# create Flask app and configure session
 app = Flask(__name__)
 app.secret_key = '12345678'
+enigma_code = "ABCD123456"
 
-# create LoginManager instance
+
+print("---------------------- start login management --------------------")
 login_manager = LoginManager()
 login_manager.init_app(app)
 login_manager.login_view = 'login'
-
-
-enigma_code = "ABCD123456"
-
 class User(UserMixin):
     def __init__(self, team_number, code):
         self.team_number = team_number
         self.code = code
         self.session_id = None
-
     def get_id(self):
         return str(self.team_number)
-
     def __repr__(self):
         return f'<User {self.team_number}>'
-
     def login(self):
         self.session_id = str(uuid4())
         session['user_id'] = self.get_id()
         session['session_id'] = self.session_id
-
     def logout(self):
         self.session_id = None
         session.pop('user_id', None)
         session.pop('session_id', None)
-
-# define user credentials
 users = {
     '1': User('1', 'pass'),
     '2': User('2', 'pass'),
     '3': User('3', 'pass')
 }
-
-# define user_loader function
 @login_manager.user_loader
 def load_user(user_id):
     return users.get(user_id)
+print("-------------------------  end login management  -----------------------------------")
+
+print("-------------------------- START RouTe MapPing --------------------------------------")
 
 
-# define wait route
+print("--------------------------- BASIC UP-FRONT START ------------------------------------")
 @app.route('/')
 def wait():
     seconds_to_wait = 1 # replace with desired number of seconds to wait
@@ -93,22 +84,31 @@ def login():
 
     return render_template('login.html')
 
+print("-------------------------- BASIC UP-FRONT END --------------------------------------")
 
-# define challenges route and function
+
+
+
+
+print("--------------------------  HOME AND MENU   --------------------------------------")
 @app.route('/i5i5rsuopeyr10cov4ovuev06cb1sxchallenges')
 def challenges():
     return render_template('home.html')
-
-
 @app.route('/about')
 def about():
     return render_template('about.html')
-
 @app.route('/company-link')
 def company_link():
     return redirect('https://linktr.ee/turingthoughts')
 
-# define routes for challenges
+print("--------------------------    MENU END    --------------------------------------")
+
+
+
+print("--------------------------   CHALLENGES   --------------------------------------")
+print("                       ONE 1. ENCRYPTION CHALLENGE                              ")
+
+
 @app.route('/challenge1')
 def challenge1():
     return render_template('challenge1.html')
@@ -124,12 +124,11 @@ def challenge1_validator():
 
 
 
-
-
+print("-------------------------------------------------------------------------------")
+print("                        TWO 2. TECH-BASICS CHALLENGE                                 ")
 @app.route('/challenge2')
 def challenge2():
     return render_template('challenge2.html')
-
 @app.route('/challenge2-validator', methods=['POST'])
 def challenge2_validator():
     riddle1_answer = request.form.get('riddle1')
@@ -144,11 +143,11 @@ def challenge2_validator():
 
 
 
+print("-------------------------------------------------------------------------------")
+print("                        THREE 3. RIDDLE CHALLENGE                                 ")
 @app.route('/challenge3')
 def challenge3():
     return render_template('challenge3.html')
-
-
 @app.route('/challenge3-validator', methods=['POST'])
 def challenge3_validator():
     riddle1_answer = request.form.get('riddle1')
@@ -162,6 +161,8 @@ def challenge3_validator():
         return render_template('challenge3.html', result='TRY AGAIN')
 
 
+print("-------------------------------------------------------------------------------")
+print("                        FOUR 4. CHESS QUEEN CHALLENGE                            ")
 @app.route('/challenge4')
 def challenge4():
     return render_template('challenge4.html')
@@ -226,11 +227,13 @@ def calculate_number(chessboard):
     return sum([columns[i] * (10 ** (7-i)) for i in range(8)])
 
 
+
+
+print("-------------------------------------------------------------------------------")
+print("                         FIVE 5. IMAGE CHALLENGE                               ")
 @app.route('/challenge5')
 def challenge5():
     return render_template('challenge5.html')
-
-
 @app.route('/challenge5-validator', methods=['POST'])
 def challenge5_validator():
     answer1 = request.form.get('q1')
@@ -243,9 +246,12 @@ def challenge5_validator():
         return render_template('challenge5.html',number=None, result='TRY AGAIN')
 
 
+
+print("-------------------------------------------------------------------------------")
+print("                          SIX 6. UNSCRAMBLE RAMBLE                             ")
 @app.route('/challenge6')
 def challenge6():
-    return render_template('challenge3.html')
+    return render_template('challenge6.html')
 
 @app.route('/challenge6-validator', methods=['POST'])
 def challenge6_validator():
@@ -258,6 +264,10 @@ def challenge6_validator():
     else:
         return render_template('challenge3.html',number=None,  result='TRY AGAIN')
 
+
+
+print("-------------------------------------------------------------------------------")
+print("                           SEVEN 7 . QUATER - 1                                 ")
 @app.route('/challenge7')
 def challenge7():
     global answer
@@ -285,6 +295,9 @@ def challenge7_validator():
         return render_template('challenge7.html', number=None, result='Try again!')
 
 
+
+print("-------------------------------------------------------------------------------")
+print("                          EIGHT 8  . QUATER - 2                                 ")
 @app.route('/challenge8')
 def challenge8():
     global answer
@@ -292,7 +305,6 @@ def challenge8():
     answer = int(math.sqrt(A - B) + math.pow(C, 3) - math.pow(C - D, 2) + 2)
     print(answer)
     return render_template('challenge8.html', number=None)
-
 @app.route('/challenge8-validator', methods=['POST'])
 def challenge8_validator():
     global answer
@@ -310,6 +322,8 @@ def challenge8_validator():
         return render_template('challenge8.html', number=None, result='Try again!')
 
 
+print("-------------------------------------------------------------------------------")
+print("                           NINE 9 . QUATER - 3                                 ")
 @app.route('/challenge9')
 def challenge9():
     global answer
@@ -317,7 +331,6 @@ def challenge9():
     answer = int(math.sqrt(A - B) + math.pow(C, 3) - math.pow(C - D, 2) + 2)
     print(answer)
     return render_template('challenge9.html', number=None)
-
 @app.route('/challenge9-validator', methods=['POST'])
 def challenge9_validator():
     global answer
@@ -335,7 +348,8 @@ def challenge9_validator():
         return render_template('challenge9.html', number=None, result='Try again!')
 
 
-
+print("-------------------------------------------------------------------------------")
+print("                            TEN 10 . QUATER - 4                                 ")
 @app.route('/challenge10')
 def challenge10():
     global answer
@@ -343,7 +357,6 @@ def challenge10():
     answer = int(math.sqrt(A - B) + math.pow(C, 3) - math.pow(C - D, 2) + 2)
     print(answer)
     return render_template('challenge10.html', number=None)
-
 @app.route('/challenge10-validator', methods=['POST'])
 def challenge10_validator():
     global answer
@@ -361,6 +374,14 @@ def challenge10_validator():
         return render_template('challenge10.html', number=None, result='Try again!')
 
 
+
+print("-------------------------------------------------------------------------------")
+print("                             CHALLENGES END                                    ")
+print("-------------------------------------------------------------------------------")
+
+
+
+print("--------------------------------  eNIGMa Validation  -----------------------------")
 @app.route('/enigma-validator-render')
 def enigma_validator_render():
     return render_template('enigma_validator.html')
@@ -370,8 +391,13 @@ def validate_enigma_code():
     code = request.json['code']
     matrix = [1 if c == enigma_code[i] else 0 for i, c in enumerate(code)]
     return jsonify(matrix)
+print("---------------------------------------------------------------------------------")
 
-# define logout route and function
+
+
+print("----------------------------  end route mapping  ----------------------------------")
+
+
 @app.route('/logout')
 @login_required
 def logout():
@@ -379,6 +405,8 @@ def logout():
     flash('Logged out successfully.')
     return redirect(url_for('login'))
 
-# run Flask app
+
 if __name__ == '__main__':
     app.run()
+
+print("------------------------------   END OF PRGM  ----------------------------------")

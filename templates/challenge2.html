@@ -66,8 +66,13 @@
 		</div>
 	</nav>
 
-	<h1>Riddle Challenge</h1>
-	<p>Answer the following three riddles to reveal the number:</p>
+	<h1>Basic Tech Challenge</h1>
+            <h2>For Position 2 - ENIGMA CODE</h2>
+            <p> CODE will be DISPLAYED BELOW IF YOU ANSWER IT RIGHT !! </p>
+	{% if result %}
+		<p class="result">{{ result }}</p>
+	{% endif %}
+	<p>Answer the following questions to get the CODE : </p>
 	<form action="/challenge2-validator" method="post">
 		<p>Riddle 1:</p>
 		<p>What is the most used programming language in 2021?</p>
@@ -81,9 +86,5 @@
 		<input type="hidden" name="number" value="{{ number }}">
 		<input type="submit" value="Submit">
 	</form>
-    <p> Number will be DISPLAYED BELOW IF YOU ANSWER IT RIGHT !! </p>
-	{% if result %}
-		<p class="result">{{ result }}</p>
-	{% endif %}
 </body>
 </html>

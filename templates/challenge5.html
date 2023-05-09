@@ -85,9 +85,10 @@
 	</nav>
 
 	<h1>Image Challenge</h1>
+            <h2>For Position 5 - ENIGMA CODE</h2>
 
      {% if result %}
-		<p class="result">{{ result }} The Number Required is : {{ number }}</p>
+		<p class="result">{{ result }} The CODE Required is : {{ number }}</p>
 	{% endif %}
 
 	<form action="/challenge5-validator" method="post">
@@ -134,7 +135,7 @@
                 </div>
             </div>
         {% if result %}
-		<p class="result">{{ result }} The Number Required is : {{ number }}</p>
+		<p class="result">{{ result }} The CODE Required is : {{ number }}</p>
 	{% endif %}
             <input type="submit" value="Submit">
 </form>
