@@ -115,9 +115,9 @@ def challenge1():
 
 @app.route('/challenge1-validator', methods=['POST'])
 def challenge1_validator():
-    answer = request.form['answer']
+    answer = request.form['answer'].strip().lower()
     number = enigma_code[0]
-    if answer == 'Narnia is coming':
+    if answer == 'well done cipher':
         return render_template('challenge1.html', number=number, result='Congratulations!')
     else:
         return render_template('challenge1.html', number=None, result='Try again!')
@@ -137,7 +137,7 @@ def challenge2_validator():
     riddle3_answer = request.form.get('riddle3')
     number = enigma_code[1]
 
-    if riddle1_answer.lower() == 'javascript' and riddle2_answer.lower() == 'css' and riddle3_answer.lower() == 'ada lovelace':
+    if riddle1_answer.strip().lower() == 'javascript' and riddle2_answer.strip().lower() == 'css' and riddle3_answer.strip().lower() == 'ada lovelace':
         return render_template('challenge2.html', result=number)
     else:
         return render_template('challenge2.html', result='TRY AGAIN')
