@@ -42,6 +42,7 @@
 	</style>
 </head>
 <body>
+
           	<nav class="navbar navbar-expand-md bg-dark navbar-dark fixed-top">
 		<div class="container">
 			<a class="navbar-brand" href="/i5i5rsuopeyr10cov4ovuev06cb1sxchallenges">Enigma Quest</a>
@@ -65,24 +66,26 @@
 		</div>
 	</nav>
 
-    <h1>Riddle Challenge</h1>
-<p>Answer the following three riddles to reveal the number:</p>
-<form action="/challenge3-validator" method="post">
-	<p>Riddle 1:</p>
-	<p>The day before two days after the day before tomorrow is SATURDAY. What day is it today?</p>
-	<input type="text" name="riddle1" placeholder="Enter your answer here">
-	<p>Riddle 2:</p>
-	<p>What is one twentieth of one half of one tenth of 10,000?</p>
-	<input type="text" name="riddle2" placeholder="Enter your answer here">
-	<p>Riddle 3:</p>
-	<p>If it were two hours later, it would be half as long until midnight as it would be if it were an hour later. What time is it now?   -  ANSWER IN FORMAT - [1-12] [a.m. or p.m.]</p>
-	<input type="text" name="riddle3" placeholder="Enter your answer here">
-	<input type="hidden" name="number" value="{{ number }}">
-	<input type="submit" value="Submit">
-</form>
-<p> Number will be DISPLAYED BELOW IF YOU ANSWER IT RIGHT !! </p>
-{% if result %}
-	<p class="result">{{ result }}</p>
-{% endif %}
+    {% if result %}
+		<p class="result">{{ result }} The NUMBER IS : {{ number }}</p>
+	{% endif %}
+	<h1>Riddle Challenge</h1>
+	<p>Answer the following two riddles to reveal the word:</p>
+	<form action="/challenge3-validator" method="post">
+		<p>Question 1:</p>
+		<p>What is the following word when it is unscrambled?</p>
+        <p>HCPRAATEU</p>
+		<input type="text" name="question1" placeholder="Enter your answer here">
+		<p>Question 2:</p>
+		<p>What is the following scrambled word?</p>
+		<p>NNREAIVARYS</p>
+		<input type="text" name="question2" placeholder="Enter your answer here">
+		<input type="hidden" name="word" value="{{ word }}">
+		<input type="submit" value="Submit">
+	</form>
+    <p> Word will be DISPLAYED BELOW IF YOU ANSWER IT RIGHT !! </p>
+	{% if result %}
+		<p class="result">{{ result }} The NUMBER IS : {{ number }}</p>
+	{% endif %}
 </body>
 </html>

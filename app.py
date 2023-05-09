@@ -150,22 +150,16 @@ def challenge3():
 
 
 @app.route('/challenge3-validator', methods=['POST'])
-def challenge3_validator(number, answer1, answer2, answer3):
-    correct_answers = {
-        'Python': 'A popular high-level programming language known for its simplicity and ease of use',
-        'JavaScript': 'A client-side scripting language used for creating interactive web pages',
-        'HTML': 'A markup language used for creating web pages and web applications',
-        'CSS': 'A style sheet language used for describing the presentation of a document written in HTML',
-        'Java': 'A popular object-oriented programming language used for creating desktop and mobile applications'
-    }
+def challenge3_validator():
+    riddle1_answer = request.form.get('riddle1')
+    riddle2_answer = request.form.get('riddle2')
+    riddle3_answer = request.form.get('riddle3')
+    number = enigma_code[2]
 
-    if len(set([answer1, answer2, answer3])) != 3:
-        return 'Please select three different options.'
-
-    if all([correct_answers[answer1] == answer2, correct_answers[answer2] == answer3]):
-        return f'Congratulations! The number is {number}.'
+    if riddle1_answer.strip().lower() == 'friday' and riddle2_answer.strip().lower() == '25' and riddle3_answer.strip().lower() == '9 pm':
+        return render_template('challenge3.html', result=number)
     else:
-        return 'Sorry, your answers are incorrect. Please try again.'
+        return render_template('challenge3.html', result='TRY AGAIN')
 
 
 @app.route('/challenge4')
@@ -231,15 +225,39 @@ def calculate_number(chessboard):
     columns = [chessboard[row].index(1) for row in range(8)]
     return sum([columns[i] * (10 ** (7-i)) for i in range(8)])
 
+
 @app.route('/challenge5')
 def challenge5():
     return render_template('challenge5.html')
 
+
+@app.route('/challenge5-validator', methods=['POST'])
+def challenge5_validator():
+    answer1 = request.form.get('q1')
+    answer2 = request.form.get('q2')
+    number = enigma_code[4]
+
+    if answer1 == 'b' and answer2 == 'c':
+        return render_template('challenge5.html',number=number, result='CORRECT')
+    else:
+        return render_template('challenge5.html',number=None, result='TRY AGAIN')
+
+
 @app.route('/challenge6')
 def challenge6():
-    return render_template('challenge6.html')
+    return render_template('challenge3.html')
 
-answer = None
+@app.route('/challenge6-validator', methods=['POST'])
+def challenge6_validator():
+    question1_answer = request.form.get('question1')
+    question2_answer = request.form.get('question2')
+    number = enigma_code[5]
+
+    if question1_answer.strip().lower() == 'parachute' and question2_answer.strip().lower() == 'anniversary':
+        return render_template('challenge3.html',number=number, result='SUCCESSFUL !')
+    else:
+        return render_template('challenge3.html',number=None,  result='TRY AGAIN')
+
 @app.route('/challenge7')
 def challenge7():
     global answer
