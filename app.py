@@ -176,7 +176,7 @@ def challenge3_validator():
     riddle3_answer = request.form.get('riddle3')
     number = enigma_code[2]
 
-    if riddle1_answer.strip().lower() == 'friday' and riddle2_answer.strip().lower() == '25' and riddle3_answer.strip().lower() == '9 pm':
+    if riddle1_answer.strip().lower() == 'friday' and riddle2_answer.strip().lower() == '25' and riddle3_answer.strip().lower() == '9 p.m.':
         return render_template('challenge3.html', result=number)
     else:
         return render_template('challenge3.html', result='TRY AGAIN')
