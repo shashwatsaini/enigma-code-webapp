@@ -1,31 +1,73 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
-      	<nav class="navbar navbar-expand-md bg-dark navbar-dark fixed-top">
-		<div class="container">
-			<a class="navbar-brand" href="/i5i5rsuopeyr10cov4ovuev06cb1sxchallenges">Enigma Quest</a>
-			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
-				<span class="navbar-toggler-icon"></span>
-			</button>
-			<div class="collapse navbar-collapse" id="collapsibleNavbar">
-				<ul class="navbar-nav ml-auto">
-					<li class="nav-item dropdown">
-						<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-							Menu
-						</a>
-						<div class="dropdown-menu" aria-labelledby="navbarDropdown">
-							<a class="dropdown-item" href="{{ url_for('enigma_validator_render') }}">Enigma Validator</a>
-                            <a class="dropdown-item" href="{{url_for('about')}}">About Page</a>
-							<a class="dropdown-item" href="{{url_for('company_link')}}">Company Link</a>
-						</div>
-					</li>
-				</ul>
-			</div>
-		</div>
-	</nav>
-</body>
+<html>
+  <head>
+    <title>About - Enigma Quest</title>
+      
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+  </head>
+  <body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+      <a class="navbar-brand" href="/i5i5rsuopeyr10cov4ovuev06cb1sxchallenges">Enigma Quest</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item active">
+            <a class="nav-link" href="/i5i5rsuopeyr10cov4ovuev06cb1sxchallenges">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="https://drive.google.com/file/d/161kRauWviZTHJOjf7gJ3zDMnl8n2A9eo/view?usp=sharing">Poster</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="https://forms.gle/VCJqq66eYm2gyDd18">Participant Registration Form</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="https://forms.gle/186djLJZf55AgbWv6">Payment Confirmation Form</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="https://drive.google.com/file/d/1Af4iBp8gS6cko-7_juwn-eB1nErSoXBw/view?usp=sharing">Payment Link</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href=https://drive.google.com/file/d/1NJvd-Q-9YRHmRpeKzWTpYLHrGPBqW1q3/view?usp=drivesdk">Agenda</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="https://drive.google.com/file/d/1BSW3LE0jHTpGUt14evCnw4fympcbeNHQ/view?usp=sharing">Rule Book</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="https://chat.whatsapp.com/FrVaURCOBrf9M5jW8yyIrj">WhatsApp Group Invite</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="https://api.whatsapp.com/send?phone=919019458974">Contact for Queries</a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+    <div class="jumbotron jumbotron-fluid">
+      <div class="container">
+  <video src="../static/laptop-intro.mp4" width="100%" height="auto" controls></video>
+  <div class="row">
+    <div class="col-md-6">
+      <h2>About Enigma Quest</h2>
+      <p>Are you a student interested in technology, AI, DS, and cybersecurity? Are you looking for a unique and fun way to showcase your skills? If yes, then Enigma Quest is the event for you!</p>
+      <p>Enigma Quest is an interactive and challenging event that will take place on May 11th, National Technological Day 🧑‍💻, from 1:30 pm to 3:30 pm. The event is designed to test participants' knowledge in various fields and will be an exciting and engaging experience for all.</p>
+      <p>Participants will have to solve a series of puzzles and riddles related to technology, AI, DS, and cybersecurity, and the team with the highest score will be declared the winner. The event will also have some surprise challenges that will require participants to think outside the box.</p>
+      <p>Enigma Quest is open to all students, regardless of their field of study, and teams can consist of up to four members. The event will be conducted online, and participants will require a stable internet connection and a laptop/desktop to participate.</p>
+    </div>
+    <div class="col-md-6">
+      <img src="../static/poster-l.png" class="img-fluid" alt="Enigma Quest Image">
+    </div>
+  </div>
+  <hr>
+ <div id="poster">
+<h2>Event Poster</h2>
+<img src="../static/poster-f.png" class="img-fluid" alt="Enigma Quest Poster">
+</div>
+</div>
+    </div>
+  </body>
 </html>
