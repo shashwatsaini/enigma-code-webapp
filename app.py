@@ -457,7 +457,6 @@ print("----------------------------  end route mapping  ------------------------
 @login_required
 def logout():
     user = current_user
-    print(user.is_authenticated)
     if user.is_authenticated:
         user.logout()
         logout_user()
