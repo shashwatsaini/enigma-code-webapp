@@ -11,42 +11,51 @@
 	<link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@700&display=swap" rel="stylesheet">
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}">
 		<style>
             body{
                 font-family: 'Roboto Mono', monospace;
+				text-align: center;
             }
-		#chessboard {
-			border-collapse: collapse;
-			margin: 0 auto;
-		}
-		#chessboard td {
-			width: 50px;
-			height: 50px;
-			text-align: center;
-			vertical-align: middle;
-			border: 1px solid black;
-			background-color: white;
-			cursor: pointer;
-		}
-		#chessboard .queen {
-			background-image: url('../static/queen.png');
-			background-size: contain;
-			background-repeat: no-repeat;
-		}
-		#chessboard tr:nth-child(odd) td:nth-child(even),
-		#chessboard tr:nth-child(even) td:nth-child(odd) {
-			background-color: #8B4513;
-		}
-		#chessboard th {
-			width: 50px;
-			height: 50px;
-			text-align: center;
-			vertical-align: middle;
-			border: 1px solid black;
-			background-color: #8B4513;
-			color: white;
-			font-weight: bold;
-		}
+			#chessboard {
+				border-collapse: collapse;
+				margin: 0 auto;
+			}
+			#chessboard td {
+				width: 50px;
+				height: 50px;
+				text-align: center;
+				vertical-align: middle;
+				border: 1px solid black;
+				background-color: white;
+				cursor: pointer;
+			}
+			#chessboard .queen {
+				background-image: url('../static/queen.png');
+				background-size: contain;
+				background-repeat: no-repeat;
+			}
+			#chessboard tr:nth-child(odd) td:nth-child(even),
+			#chessboard tr:nth-child(even) td:nth-child(odd) {
+				background-color: #8B4513;
+			}
+			#chessboard th {
+				width: 50px;
+				height: 50px;
+				text-align: center;
+				vertical-align: middle;
+				border: 1px solid black;
+				background-color: #8B4513;
+				color: white;
+				font-weight: bold;
+			}
+			input[type="submit"] {
+				margin-bottom: 20px;
+				margin-left: auto;
+				margin-right: auto;
+				display: block;
+			}
+
 	</style>
 </head>
 <body>
