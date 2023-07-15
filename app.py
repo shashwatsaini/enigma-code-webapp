@@ -78,7 +78,7 @@ print("--------------------------- BASIC UP-FRONT START ------------------------
 
 @app.route('/')
 def wait():
-    seconds_to_wait = 0  # replace with desired number of seconds to wait
+    seconds_to_wait = 21  # replace with desired number of seconds to wait
     return render_template('wait.html', seconds=seconds_to_wait)
 
 
@@ -556,6 +556,6 @@ def logout():
 
 
 if __name__ == '__main__':
-    app.run(debug=True) 
+    app.run() 
 
 print("------------------------------   END OF PRGM  ----------------------------------")
