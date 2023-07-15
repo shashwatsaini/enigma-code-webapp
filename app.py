@@ -23,9 +23,17 @@ class User(UserMixin, db.Model):
     team_number = db.Column(db.String(20), primary_key=True)
     code = db.Column(db.String(20), unique=True)
     session_id = db.Column(db.String(36), unique=False, nullable=True, default=None)
+    score = db.Column(db.Integer, unique=False, nullable=False, default=0)
+    attempted = db.Column(db.String(10), unique=False, nullable=False, default='0000000000')
 
     def get_id(self):
         return str(self.team_number)
+    
+    def get_score(self):
+        return int(self.score)
+    
+    def get_attempted(self):
+        return self.attempted
     
     def is_authenticated(self):
         if self.session_id is None:
@@ -70,7 +78,7 @@ print("--------------------------- BASIC UP-FRONT START ------------------------
 
 @app.route('/')
 def wait():
-    seconds_to_wait = 21  # replace with desired number of seconds to wait
+    seconds_to_wait = 0  # replace with desired number of seconds to wait
     return render_template('wait.html', seconds=seconds_to_wait)
 
 
@@ -113,6 +121,8 @@ print("--------------------------  HOME AND MENU   -----------------------------
 def challenges():
     if not current_user.is_authenticated:
         return redirect(url_for('login'))
+    if current_user.team_number.find('Admin') != -1:
+        return render_template('home.html', cache_bust=time(), session='admin')
     return render_template('home.html', cache_bust=time())
 
 
@@ -124,6 +134,15 @@ def about():
 @app.route('/company-link')
 def company_link():
     return redirect('https://linktr.ee/turingthoughts')
+
+@app.route('/check-scores')
+def check_scores():
+    if current_user.team_number.find('Admin') != -1:
+        scores = db.session.query(User.team_number, User.score, User.attempted).all()
+        return render_template('check_scores.html', scores=scores)
+    else:
+        return redirect(url_for('challenges'))
+
 
 
 print("--------------------------    MENU END    --------------------------------------")
@@ -142,7 +161,14 @@ def challenge1_validator():
     answer = request.form['answer'].strip().lower()
     number = enigma_code[0]
     if answer == 'well done cipher':
-        return render_template('challenge1.html', number=number, result='Congratulations!')
+        attempted = current_user.attempted
+        if attempted[0] == '1':
+            return render_template('challenge1.html', number=number, result='You have already solved this challenge!')
+        else:
+            current_user.attempted = '1' + attempted[1:]
+            current_user.score += 1
+            db.session.commit()
+            return render_template('challenge1.html', number=number, result='Congratulations!')
     else:
         return render_template('challenge1.html', number=None, result='Try again!')
 
@@ -164,7 +190,14 @@ def challenge2_validator():
     number = enigma_code[1]
 
     if riddle1_answer.strip().lower() == 'javascript' and riddle2_answer.strip().lower() == 'css' and riddle3_answer.strip().lower() == 'ada lovelace':
-        return render_template('challenge2.html', result=number)
+        attempted = current_user.attempted
+        if attempted[1] == '1':
+            return render_template('challenge2.html', result='You have already solved this challenge!')
+        else:
+            current_user.attempted = attempted[0] + '1' + attempted[2:]
+            current_user.score += 1
+            db.session.commit()
+            return render_template('challenge2.html', result=number)
     else:
         return render_template('challenge2.html', result='TRY AGAIN')
 
@@ -186,7 +219,14 @@ def challenge3_validator():
     number = enigma_code[2]
 
     if riddle1_answer.strip().lower() == 'friday' and riddle2_answer.strip().lower() == '25' and riddle3_answer.strip().lower() == '9 p.m.':
-        return render_template('challenge3.html', result=number)
+        attempted = current_user.attempted
+        if attempted[2] == '1':
+            return render_template('challenge3.html', result='You have already solved this challenge!')
+        else:
+            current_user.attempted = attempted[0:2] + '1' + attempted[3:]
+            current_user.score += 1
+            db.session.commit()
+            return render_template('challenge3.html', result=number)
     else:
         return render_template('challenge3.html', result='TRY AGAIN')
 
@@ -208,7 +248,14 @@ def challenge4_validator():
         chessboard[row][col] = 1
     if is_valid_chessboard(chessboard):
         number = enigma_code[3]
-        return str(number)
+        attempted = current_user.attempted
+        if attempted[3] == '1':
+            return render_template('challenge4.html', result='You have already solved this challenge!')
+        else:
+            current_user.attempted = attempted[0:3] + '1' + attempted[4:]
+            current_user.score += 1
+            db.session.commit()
+            return str(number)
     else:
         return '', 400
 
@@ -279,7 +326,14 @@ def challenge5_validator():
     number = enigma_code[4]
 
     if answer1 == 'b' and answer2 == 'c':
-        return render_template('challenge5.html', number=number, result='CORRECT')
+        attempted = current_user.attempted
+        if attempted[4] == '1':
+            return render_template('challenge2.html', number=None, result='You have already solved this challenge!')
+        else:
+            current_user.attempted = attempted[0:4] + '1' + attempted[5:]
+            current_user.score += 1
+            db.session.commit()
+            return render_template('challenge5.html', number=number, result='CORRECT')
     else:
         return render_template('challenge5.html', number=None, result='TRY AGAIN')
 
@@ -300,7 +354,14 @@ def challenge6_validator():
     number = enigma_code[5]
 
     if question1_answer.strip().lower() == 'parachute' and question2_answer.strip().lower() == 'anniversary':
-        return render_template('challenge6.html', number=number, result='SUCCESSFUL !')
+        attempted = current_user.attempted
+        if attempted[5] == '1':
+            return render_template('challenge6.html', number=None, result='You have already solved this challenge!')
+        else:
+            current_user.attempted = attempted[0:5] + '1' + attempted[6:]
+            current_user.score += 1
+            db.session.commit()
+            return render_template('challenge6.html', number=number, result='SUCCESSFUL !')
     else:
         return render_template('challenge6.html', number=None, result='TRY AGAIN')
 
@@ -331,7 +392,14 @@ def challenge7_validator():
     print(number)
     if num in (43,44,45):
         print("ENTER IF")
-        return render_template('challenge7.html', number=number, result='Congratulations!')
+        attempted = current_user.attempted
+        if attempted[6] == '1':
+            return render_template('challenge7.html', result='You have already solved this challenge!')
+        else:
+            current_user.attempted = attempted[0:6] + '1' + attempted[7:]
+            current_user.score += 1
+            db.session.commit()
+            return render_template('challenge7.html', number=number, result='Congratulations!')
     else:
         print("ENTER ELSE")
         return render_template('challenge7.html', number=None, result='Try again!')
@@ -361,7 +429,14 @@ def challenge8_validator():
     print(number)
     if num in (11,12,13):
         print("ENTER IF")
-        return render_template('challenge8.html', number=number, result='Congratulations!')
+        attempted = current_user.attempted
+        if attempted[7] == '1':
+            return render_template('challenge8.html', result='You have already solved this challenge!')
+        else:
+            current_user.attempted = attempted[0:7] + '1' + attempted[8:]
+            current_user.score += 1
+            db.session.commit()
+            return render_template('challenge8.html', number=number, result='Congratulations!')
     else:
         print("ENTER ELSE")
         return render_template('challenge8.html', number=None, result='Try again!')
@@ -391,7 +466,14 @@ def challenge9_validator():
     print(number)
     if num in (8,9,10):
         print("ENTER IF")
-        return render_template('challenge9.html', number=number, result='Congratulations!')
+        attempted = current_user.attempted
+        if attempted[8] == '1':
+            return render_template('challenge9.html', result='You have already solved this challenge!')
+        else:
+            current_user.attempted = attempted[0:8] + '1' + attempted[9:]
+            current_user.score += 1
+            db.session.commit()
+            return render_template('challenge9.html', number=number, result='Congratulations!')
     else:
         print("ENTER ELSE")
         return render_template('challenge9.html', number=None, result='Try again!')
@@ -422,7 +504,14 @@ def challenge10_validator():
 
     if num in (57.2723, 58, 59, 57, 56):
         print("ENTER IF")
-        return render_template('challenge10.html', number=number, result='Congratulations!')
+        attempted = current_user.attempted
+        if attempted[9] == '1':
+            return render_template('challenge10.html', result='You have already solved this challenge!')
+        else:
+            current_user.attempted = attempted[0:9] + '1'
+            current_user.score += 1
+            db.session.commit()
+            return render_template('challenge10.html', number=number, result='Congratulations!')
     else:
         print("ENTER ELSE")
         return render_template('challenge10.html', number=None, result='Try again!')
@@ -467,6 +556,6 @@ def logout():
 
 
 if __name__ == '__main__':
-    app.run() 
+    app.run(debug=True) 
 
 print("------------------------------   END OF PRGM  ----------------------------------")

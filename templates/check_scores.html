@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<!DOCTYPE html>
 <html>
 <head>
 	<title>Enigma Quest</title>
@@ -10,16 +11,40 @@
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>  
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}">
 	<style>
-        @media only screen and (max-width: 768px) {
-            .buttons {
-                grid-template-columns: repeat(1, 1fr);
-                grid-template-rows: repeat(10, 1fr);
-                gap: 10px;
-            }
-            .button {
-                width: 100%;
-            }
+        .score_table {
+            width: 70%;
+            margin: 20px;
+            margin-left: auto;
+            margin-right: auto;
+            margin-top: 100px;
+            position: relative;
+            z-index: 1;
         }
+
+        .score_table table {
+            width: 100%;
+            border-collapse: collapse;
+            background-color: #f21d39;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .score_table th,
+        .score_table td {
+            padding: 10px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .score_table th {
+            background-color: #333;
+            color: #fff;
+        }
+
+        .score_table tr:hover {
+            background-color: #2d2b2b;
+        }
+
 	</style>
 </head>
 <body>
@@ -31,11 +56,9 @@
             </button>
             <div class="collapse navbar-collapse" id="collapsibleNavbar">
                 <ul class="navbar-nav ml-auto">
-                    {% if session == 'admin' %}
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ url_for('check_scores') }}">Check Scores</a>
+                        <a class="nav-link" href="{{ url_for('challenges') }}">Home</a>
                     </li>
-                    {% endif %}
                     <li class="nav-item">
                         <a class="nav-link" href="{{ url_for('enigma_validator_render') }}">Enigma Validator</a>
                     </li>
@@ -52,53 +75,23 @@
             </div>
         </div>
     </nav>
-    
 
-
-
-
-
-<div class="buttons">
-	<a href="{{ url_for('challenge1') }}" class="button">
-        <img src="../static/bg-1.png" alt="button image">
-        Decrypt Me
-    </a>
-    <a href="{{ url_for('challenge2') }}" class="button">
-        <img src="../static/bg-2.png" alt="button image">
-        Quizzz
-    </a>
-    <a href="{{ url_for('challenge3') }}" class="button">
-        <img src="../static/bg-3.png" alt="button image">
-        HuRidle
-    </a>
-    <a href="{{ url_for('challenge4') }}" class="button">
-        <img src="../static/bg-4.png" alt="button image">
-        Check_Mate!
-    </a>
-    <a href="{{ url_for('challenge5') }}" class="button">
-        <img src="../static/bg-5.png" alt="button image">
-        Pattern Up!
-    </a>
-    <a href="{{ url_for('challenge6') }}" class="button">
-        <img src="../static/bg-6.png" alt="button image">
-        Unscramble Ramble!
-    </a>
-    <a href="{{ url_for('challenge7') }}" class="button">
-        <img src="../static/bg-7.png" alt="button image">
-        Quarter 1!
-    </a>
-    <a href="{{ url_for('challenge8') }}" class="button">
-        <img src="../static/bg-8.png" alt="button image">
-        Quarter 2!
-    </a>
-    <a href="{{ url_for('challenge9') }}" class="button">
-        <img src="../static/bg-9.png" alt="button image">
-        Quarter 3!
-    </a>
-    <a href="{{ url_for('challenge10') }}" class="button">
-        <img src="../static/bg-10.png" alt="button image">
-        Quarter 4!
-    </a>
+<div class="score_table">
+    <table>
+        <tr>
+            <th>Username</th>
+            <th>Score</th>
+            <th>Attempted</th>
+        </tr>   
+        {% for i in scores %}
+        <tr>
+            <td>{{ i[0] }}</td>
+            <td>{{ i[1] }}</td>
+            <td>{{ i[2] }}</td>
+        </tr>
+        {% endfor %}
+    </table>
 </div>
+    
 </body>
 </html>
